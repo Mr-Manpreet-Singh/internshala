@@ -1,5 +1,5 @@
-// AUTO GENERATED   
-// Json --> Dart 
+// AUTO GENERATED
+// Json --> Dart
 // Try Not To Change
 
 class ApplicationStatusMessage {
@@ -106,8 +106,7 @@ class Label {
   }
 }
 
-
-class Job {
+class Internship {
   int id;
   String title;
   String employmentType;
@@ -182,7 +181,7 @@ class Job {
   bool toShowCoverLetter;
   dynamic officeDays;
 
-  Job({
+  Internship({
     required this.id,
     required this.title,
     required this.employmentType,
@@ -258,8 +257,8 @@ class Job {
     this.officeDays,
   });
 
-  factory Job.fromJson(Map<String, dynamic> json) {
-    return Job(
+  factory Internship.fromJson(Map<String, dynamic> json) {
+    return Internship(
       id: json['id'],
       title: json['title'],
       employmentType: json['employment_type'],
@@ -335,8 +334,7 @@ class Job {
       officeDays: json['office_days'],
     );
   }
-  static List<Job> fromJsonList(List<dynamic> jsonList) {
-    return jsonList.map((json) => Job.fromJson(json)).toList();
+  static List<Internship> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => Internship.fromJson(json)).toList();
   }
 }
-

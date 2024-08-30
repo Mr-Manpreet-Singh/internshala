@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../ui/city_filter_screen.dart';
+import '../ui/profile_filter_screen.dart';
+
 final selectedDurationProvider = StateProvider<String?>((ref) => null);
 
 const List<PopupMenuEntry<String>> durationItems = [
@@ -13,6 +16,7 @@ const List<PopupMenuEntry<String>> durationItems = [
 ];
 
 abstract class FiltersRepo {
+
   static void showDropdown(textFieldKey, ref, context) async {
     final RenderBox renderBox = textFieldKey.currentContext!.findRenderObject() as RenderBox;
     final offset = renderBox.localToGlobal(Offset.zero);
@@ -27,8 +31,19 @@ abstract class FiltersRepo {
 
     if (result != null) {
       ref.read(selectedDurationProvider.notifier).state = result;
-      print("Fiters State :${ref.read(selectedDurationProvider)} ");
       FocusScope.of(context).unfocus();
     }
   }
+  static   navigateToProfileFilterScreen(context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const ProfileFilter(),
+    ));
+  }
+
+  static navigateToCityFilterScreen(context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const CityFilter(),
+    ));
+  }
 }
+

@@ -17,7 +17,7 @@ class Lables extends StatelessWidget {
         Container(
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
             decoration: BoxDecoration(color: myLightGreyColor, borderRadius: BorderRadius.circular(6)),
-            child: const Text("Internship With Job Offer", style: MyTextStyles.small)),
+            child: const Text("Internship With Internship Offer", style: MyTextStyles.small)),
         Container(
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
             decoration: BoxDecoration(color: myLightGreyColor, borderRadius: BorderRadius.circular(6)),

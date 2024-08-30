@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:internshala/core/constants/colors.dart';
 import 'package:internshala/core/constants/text_styles.dart';
+import 'package:internshala/features/filters/repository/filters_repo.dart';
 import 'package:internshala/features/filters/ui/widgets/duration_drop_down.dart';
+import 'widgets/filtered_cities_wrapper.dart';
+import 'widgets/filtered_profile_wrapper.dart';
+import 'widgets/text_icon_button.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
@@ -29,29 +32,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text("PROFILE", style: MyTextStyles.subTitleGrey),
-            TextButton.icon(
-              onPressed: () {},
-              label: const Text("Add Profile"),
-              icon: const Icon(Icons.add, size: 18),
-              style: TextButton.styleFrom(
-                  backgroundColor: myWhiteColor,
-                  foregroundColor: myBlueColor,
-                  minimumSize: const Size(double.infinity, 50),
-                  textStyle: MyTextStyles.subTitleGrey,
-                  padding: const EdgeInsets.only(left: 0),
-                  alignment: Alignment.centerLeft),
+            const FilteredProfiles(),
+            MyTextIconButton(
+              title: "Add Profile",
+              onPress: () => FiltersRepo.navigateToProfileFilterScreen(context),
             ),
             const Text("CITY", style: MyTextStyles.subTitleGrey),
-            TextButton.icon(
-              onPressed: () {},
-              label: const Text("Add City"),
-              icon: const Icon(Icons.add, size: 18),
-              style: TextButton.styleFrom(
-                  foregroundColor: myBlueColor,
-                  minimumSize: const Size(double.infinity, 50),
-                  textStyle: MyTextStyles.subTitleGrey,
-                  padding: const EdgeInsets.only(left: 0),
-                  alignment: Alignment.centerLeft),
+            const FilteredCities(),
+            MyTextIconButton(
+              onPress: () => FiltersRepo.navigateToCityFilterScreen(context),
+              title: "Add City",
             ),
             const Text("MAXIMUM DURATION (IN MONTHS)", style: MyTextStyles.subTitleGrey),
             const SizedBox(height: 12),
@@ -63,3 +53,4 @@ class _FiltersScreenState extends State<FiltersScreen> {
     ));
   }
 }
+
