@@ -8,7 +8,7 @@ import '../../../../core/constants/text_styles.dart';
 class InternshipCard extends StatelessWidget {
   const InternshipCard({super.key, required this.internship});
 
-  final Job internship;
+  final Internship internship;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,6 @@ class InternshipCard extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             children: [
-              // TODO icon depend on WHF or OFFICE
               const Icon(Icons.home_filled, size: 16, color: Color.fromARGB(158, 0, 0, 0)),
               const SizedBox(width: 4),
               Text(location, style: MyTextStyles.subTitleBlack)
@@ -74,7 +73,6 @@ class InternshipCard extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             children: [
-              // TODO icon depend on WHF or OFFICE
               const Icon(Icons.play_circle_outline_sharp, size: 16, color: Color.fromARGB(158, 0, 0, 0)),
               const SizedBox(width: 4),
               Text(start, style: MyTextStyles.subTitleBlack),

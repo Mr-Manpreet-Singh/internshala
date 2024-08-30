@@ -19,10 +19,10 @@ class _AppWrapperState extends State<AppWrapper> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const InternshipsScreen(),
-    const JobsScreen(),
+    const JobScreen(),
     const CoursesScreen(),
   ];
-  final List<String> _appBarTitle = ["Internshala", "Internships", "Jobs", "Courses"];
+  final List<String> _appBarTitle = ["Internshala", "Internships", "Internships", "Courses"];
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class _AppWrapperState extends State<AppWrapper> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.business_center),
-              label: 'Jobs',
+              label: 'Job',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.school),

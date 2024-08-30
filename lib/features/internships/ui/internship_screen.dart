@@ -1,15 +1,13 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internshala/core/constants/text_styles.dart';
 
 import 'package:internshala/core/constants/colors.dart';
-import 'package:internshala/features/filters/repository/filters_repo.dart';
 import 'package:internshala/features/filters/ui/filters_screen.dart';
+import 'package:internshala/features/internships/repository/filter_repo.dart';
 
 import '../../../models/internship_model.dart';
-import '../repository/fetch_jobs.dart';
+import '../repository/fetch_internships.dart';
 import 'widgets/internship_card.dart';
 
 class InternshipsScreen extends StatelessWidget {
@@ -23,59 +21,60 @@ class InternshipsScreen extends StatelessWidget {
       Container(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         decoration: BoxDecoration(border: Border.all(color: myBlueColor), borderRadius: BorderRadius.circular(30)),
-        child: InkWell(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => FiltersScreen(),)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.filter_alt_outlined, size: 18, color: myBlueColor),
-              Text(
-                "Filters",
-                style: MyTextStyles.subTitleBlack.copyWith(color: myBlueColor),
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const FiltersScreen(),
+              )),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.filter_alt_outlined, size: 18, color: myBlueColor),
+                  Text(
+                    "Filters",
+                    style: MyTextStyles.subTitleBlack.copyWith(color: myBlueColor),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            // Text("$ total internships")
+          ],
         ),
       ),
       const Divider(thickness: 2, color: myLightGreyColor),
       Expanded(
         child: Consumer(builder: (context, ref, child) {
-          final jobListAsyncValue = ref.watch(jobListProvider);
-              // Filter jobs based on duration
-          final maxDuration = ref.read(selectedDurationProvider);
-          if(maxDuration != null){
+          final internshipListAsyncValue = ref.watch(internshipListProvider);
 
-          }
+          return internshipListAsyncValue.when(data: (internshipList) {
+            List<Internship> filteredList = internshipList;
+            filteredList = FilterInternships.applyfilter(ref, filteredList);
+            if (filteredList.isEmpty) {
+              return const Center(
+                child: Text("No Internships Available as per current Filters"),
+              );
+            }
 
-          return jobListAsyncValue.when(
-            data: (jobList) { 
-                  // Filter jobs based on duration
-          // final maxDuration = ref.watch(selectedDurationProvider);
-          // if(maxDuration != null){
-          //   for(Job job in jobList){
-          //     if (int.tryParse(job.duration.trim().substring(0,1))!  > int.parse(maxDuration) ){
-          //         jobList.removeWhere((element) => element.id == job.id);
-          //     }
-          //   }
-          // }
-              return ListView.builder(
-              
-              itemCount: jobList.length,
+            return ListView.builder(
+              itemCount: filteredList.length,
               itemBuilder: (context, index) {
-                final Job job = jobList[index];
+                final Internship internship = filteredList[index];
                 return Column(
                   children: [
                     InternshipCard(
-                      internship: job,
+                      internship: internship,
                     ),
                     const Divider(thickness: 10, color: myLightGreyColor),
                   ],
                 );
               },
-            );},
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, stackTrace) => Center(child: Text("Error: $error")),
-          );
+            );
+          }, loading: () {
+            return const Center(child: CircularProgressIndicator());
+          }, error: (error, stackTrace) {
+            return Center(child: Text("Error: $error"));
+          });
         }),
       ),
     ]);
