@@ -15,6 +15,16 @@ class InternshipsScreen extends StatelessWidget {
     super.key,
   });
 
+  // Widget noInternet = Center(
+  //   child: ElevatedButton(
+  //     child: Text("ReLoad"),
+  //     onPressed: () {
+  //       Ref ref;
+  //       ref.watch(internshipListProvider);
+  //     },
+  //   ),
+  // );
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -73,7 +83,19 @@ class InternshipsScreen extends StatelessWidget {
           }, loading: () {
             return const Center(child: CircularProgressIndicator());
           }, error: (error, stackTrace) {
-            return Center(child: Text("Error: $error"));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("$error"),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                    onPressed: () {
+                      ref.refresh(internshipListProvider);
+                    } // try reload
+                    ,
+                    child: const Text("Try Reload"))
+              ],
+            );
           });
         }),
       ),

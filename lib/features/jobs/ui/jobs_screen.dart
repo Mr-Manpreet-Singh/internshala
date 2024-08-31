@@ -6,7 +6,7 @@ class JobScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("Internships Screen"),
+      child: Text("Jobs Screen"),
     );
   }
 }

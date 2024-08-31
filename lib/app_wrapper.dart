@@ -22,7 +22,7 @@ class _AppWrapperState extends State<AppWrapper> {
     const JobScreen(),
     const CoursesScreen(),
   ];
-  final List<String> _appBarTitle = ["Internshala", "Internships", "Internships", "Courses"];
+  final List<String> _appBarTitle = ["Internshala", "Internships", "Jobs", "Courses"];
 
   @override
   Widget build(BuildContext context) {

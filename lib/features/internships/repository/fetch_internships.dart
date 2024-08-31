@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,11 +13,8 @@ final fetchInternshipsProvider = Provider<FetchInternships>((ref) {
 
 final internshipListProvider = FutureProvider<List<Internship>>((ref) async {
   final internshipService = ref.watch(fetchInternshipsProvider);
-  try {
-    return await internshipService.fetchInternships();
-  } catch (e) {
-    throw Exception("Failed to load internships: ${e.toString()}");
-  }
+
+  return await internshipService.fetchInternships();
 });
 
 class FetchInternships {
@@ -33,6 +32,9 @@ class FetchInternships {
       } else {
         throw Exception("Failed to load internships");
       }
+    } on SocketException {
+      // Handle no internet connection
+      throw Exception('No Internet Connection');
     } on Exception catch (e) {
       throw Exception("Failed :$e");
     }
